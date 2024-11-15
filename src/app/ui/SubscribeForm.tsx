@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { addSubscriber } from "../lib/db/actions"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -29,11 +30,16 @@ export function SubscribeForm() {
     },
   })
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      // Save the email to the database
+      await addSubscriber(values.email)
+      console.log('Subscriber added:', values.email)
+      // Optionally, show a success message or reset the form
+      form.reset()  // Resets the form fields after submission
+    } catch (error) {
+      console.error('Failed to subscribe:', error)
+    }
   }
 
   return (

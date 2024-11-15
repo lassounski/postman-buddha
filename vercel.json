@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "api/fetchQuotes/route.ts": {
+            "schedule": "0 0 * * *"
+        }
+    }
+}
