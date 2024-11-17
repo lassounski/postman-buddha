@@ -1,0 +1,34 @@
+{
+    "id": "chatcmpl-AUFS3LUBF8sM4yCwB4zSszBWt9pbk",
+    "object": "chat.completion",
+    "created": 1731772599,
+    "model": "gpt-3.5-turbo-0125",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "{\n    \"quotes\": [\n        {\n            \"sentence\": \"Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.\",\n            \"explanation\": \"This quote emphasizes the importance of mindfulness and being fully present in the current moment.\",\n            \"author\": \"Buddha\",\n            \"origin\": \"Teachings of the Buddha\",\n            \"date\": \"6th to 4th century BCE\",\n            \"schoolOfThought\": \"Buddhism\",\n            \"category\": \"Mindfulness\",\n            \"referenceUrl\": \"https://www.goodreads.com/quotes/101132-do-not-dwell-in-the-past-do-not-dream-of\"\n        },\n        {\n            \"sentence\": \"The mind is everything. What you think you become.\",\n            \"explanation\": \"This quote highlights the power of thoughts in shaping one's reality and being.\",\n            \"author\": \"Buddha\",\n            \"origin\": \"Teachings of the Buddha\",\n            \"date\": \"6th to 4th century BCE\",\n            \"schoolOfThought\": \"Buddhism\",\n            \"category\": \"Mindfulness\",\n            \"referenceUrl\": \"https://www.goodreads.com/quotes/101131-the-mind-is-everything-what-you-think-you-become\"\n        },\n        {\n            \"sentence\": \"Peace comes from within. Do not seek it without.\",\n            \"explanation\": \"This quote emphasizes the idea that true peace and contentment can only be found by looking inward.\",\n            \"author\": \"Buddha\",\n            \"origin\": \"Teachings of the Buddha\",\n            \"date\": \"6th to 4th century BCE\",\n            \"schoolOfThought\": \"Buddhism\",\n            \"category\": \"Mindfulness\",\n            \"referenceUrl\": \"https://www.goodreads.com/quotes/101130-peace-comes-from-within-do-not-seek-it-without\"\n        }\n    ]\n}",
+                "refusal": null
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 106,
+        "completion_tokens": 409,
+        "total_tokens": 515,
+        "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "audio_tokens": 0
+        },
+        "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "audio_tokens": 0,
+            "accepted_prediction_tokens": 0,
+            "rejected_prediction_tokens": 0
+        }
+    },
+    "system_fingerprint": null
+}

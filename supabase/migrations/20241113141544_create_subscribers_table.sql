@@ -1,6 +1,3 @@
--- migrations/20231113094523_create_subscribers_table.sql
-
--- Create the 'subscribers' table
 CREATE TABLE subscribers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(), -- Use UUID for a more scalable and secure ID
   email VARCHAR(255) UNIQUE NOT NULL,            -- Ensure unique email for each subscriber
