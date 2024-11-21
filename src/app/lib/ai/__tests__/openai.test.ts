@@ -1,7 +1,6 @@
 
 import { getQuotes } from "../openai";
 import mockedResponse from "./mockedResponse.json"
-import OpenAI from "openai";
 
 jest.mock('openai', () => {
     return {

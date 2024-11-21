@@ -7,7 +7,7 @@ CREATE TABLE quotes (
     date VARCHAR(255),                                                      -- The date the quote was created or recorded
     schoolOfThought VARCHAR(255),                                   -- The school of thought associated with the quote
     category VARCHAR(255),                                          -- Category of the quote (e.g., Wisdom, Mindfulness)
-    referenceUrl VARCHAR(255),                                      -- URL to the reference source
+    referenceurl VARCHAR(255),                                      -- URL to the reference source
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,  -- Automatically set the creation time
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP   -- Automatically set the last updated time
 );

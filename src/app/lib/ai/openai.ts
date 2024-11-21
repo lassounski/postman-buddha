@@ -4,22 +4,22 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-interface Quote {
+export type Quote = {
     sentence: string;
     explanation: string;
-    author: string;
-    origin: string | null;
-    date: string | null;
-    schoolOfThought: string;
-    category: string | null;
-    referenceUrl: string | null;
+    author: string | undefined;
+    origin: string | undefined;
+    date: string | undefined;
+    schoolOfThought: string | undefined;
+    category: string | undefined;
+    referenceUrl: string | undefined;
 }
 
-interface QuotesResponse {
+export type QuotesResponse = {
     quotes: Quote[];
 }
 
-export async function getQuotes(author: string, numberOfQuotes: string) {
+export async function getQuotes(author: string, numberOfQuotes: string): Promise<QuotesResponse> {
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
@@ -59,7 +59,7 @@ export async function getQuotes(author: string, numberOfQuotes: string) {
         const data: QuotesResponse = JSON.parse(quotes);
         console.log(`fetched quotes ${data}`)
 
-        return quotes
+        return data
     } catch (error: any) {
         if (error.response) {
             console.error('Error status:', error.response.status);
@@ -67,5 +67,6 @@ export async function getQuotes(author: string, numberOfQuotes: string) {
           } else {
             console.error('Error message:', error.message);
           }
+        throw new Error('Something went wrong.')
     }
 }

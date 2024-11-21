@@ -1,6 +1,8 @@
 'use server'
 
 import { createClient } from '@/app/lib/db/supabaseServer'
+import { QuotesResponse } from '../ai/openai'
+import { Database } from './supabase-types'
 
 export async function addSubscriber(email: string) {
   const supabase = await createClient()
@@ -9,7 +11,7 @@ export async function addSubscriber(email: string) {
     const { data, error } = await supabase
       .from('subscribers')
       .insert([{ email }])
-    
+
     if (error) {
       throw new Error(error.message)
     }
@@ -21,37 +23,34 @@ export async function addSubscriber(email: string) {
   }
 }
 
-export async function saveQuotesToDb(quotes: {
-  sentence: string
-  explanation: string
-  author: string
-  origin: string | null
-  date: string | null
-  schoolOfThought: string
-  category: string | null
-  referenceUrl: string | null
-}[]) {
+export async function saveQuotesToDb(quotesResponse: QuotesResponse) {
   const supabase = await createClient()
-  
+  type QuotesInsert = Database['public']['Tables']['quotes']['Insert']
   try {
-    const { data, error } = await supabase
-      .from('quotes')  
-      .insert(quotes.map(quote => ({
-        sentence: quote.sentence,
-        explanation: quote.explanation,
-        author: quote.author,
-        origin: quote.origin ?? null,
-        date: quote.date ?? null,
-        schoolOfThought: quote.schoolOfThought ?? null,
-        category: quote.category ?? null,
-        referenceUrl: quote.referenceUrl ?? null,
-        created_at: new Date().toISOString(),
-      })))
+    // Transform quotes to match the DB schema
+    const transformedQuotes: QuotesInsert[] = quotesResponse.quotes.map((quote) => ({
+      sentence: quote.sentence,
+      explanation: quote.explanation,
+      author: quote.author,
+      origin: quote.origin ?? null,
+      date: quote.date ?? null,
+      schoolofthought: quote.schoolOfThought ?? null,
+      category: quote.category ?? null,
+      referenceurl: quote.referenceUrl ?? null
+    }));
 
-    if (error) throw error
-    return data
+    // Insert quotes in bulk
+    const { data, error } = await supabase.from("quotes").insert(transformedQuotes);
+
+    if (error) {
+      console.error("Error inserting quotes:", error.message);
+      throw error;
+    }
+
+    console.log("Quotes successfully inserted:", data);
+    return data;
   } catch (error) {
-    console.error('Error saving quote to DB:', error)
-    throw error
+    console.error("Error saving quotes to DB:", error);
+    throw error;
   }
 }
