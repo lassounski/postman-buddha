@@ -1,14 +1,14 @@
 'use server'
 
-import { createClient } from '@/app/lib/db/supabaseServer'
+import { createSupabaseServer } from '@/app/lib/db/supabaseServer'
 import { QuotesResponse } from '../ai/openai'
 import { Database } from './supabase-types'
 
 export async function addSubscriber(email: string) {
-  const supabase = await createClient()
+  const supabaseServer = await createSupabaseServer()
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('subscribers')
       .insert([{ email }])
 
@@ -24,7 +24,7 @@ export async function addSubscriber(email: string) {
 }
 
 export async function saveQuotesToDb(quotesResponse: QuotesResponse) {
-  const supabase = await createClient()
+  const supabaseServer = await createSupabaseServer()
   type QuotesInsert = Database['public']['Tables']['quotes']['Insert']
   try {
     // Transform quotes to match the DB schema
@@ -40,7 +40,7 @@ export async function saveQuotesToDb(quotesResponse: QuotesResponse) {
     }));
 
     // Insert quotes in bulk
-    const { data, error } = await supabase.from("quotes").insert(transformedQuotes);
+    const { data, error } = await supabaseServer.from("quotes").insert(transformedQuotes);
 
     if (error) {
       console.error("Error inserting quotes:", error.message);
