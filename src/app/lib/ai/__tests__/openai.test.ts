@@ -1,5 +1,5 @@
 
-import { getQuotes } from "../openai";
+import { getQuotes, QuotesResponse } from "../openai";
 import mockedResponse from "./mockedResponse.json"
 
 jest.mock('openai', () => {
@@ -21,15 +21,11 @@ jest.mock('openai', () => {
 
 describe('getQuotes function', () => {
     it('should return parsed quotes from the mocked OpenAI response', async () => {
-        const response = await getQuotes('Buddha', '3') ?? '';
-
-        // Check if the response matches the expected content
-        expect(response).toEqual(mockedResponse.choices[0].message.content.trim());
+        const response: QuotesResponse = await getQuotes('Buddha', '3') ?? '';
 
         // Additional assertions to verify correct parsing
-        const data = JSON.parse(response);
-        expect(data.quotes).toHaveLength(3);
-        expect(data.quotes[0]).toMatchObject({
+        expect(response.quotes).toHaveLength(3);
+        expect(response.quotes[0]).toMatchObject({
             sentence: "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
             explanation: "This quote emphasizes the importance of mindfulness and being fully present in the current moment.",
             author: "Buddha",
