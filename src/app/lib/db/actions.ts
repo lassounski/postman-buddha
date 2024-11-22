@@ -1,6 +1,6 @@
 'use server'
 
-import { createClient } from '@/app/lib/db/supabaseServer'
+import createClient from '@/app/lib/db/supabaseServer'
 import { QuotesResponse } from '../ai/openai'
 import { Database } from './supabase-types'
 
